@@ -1,0 +1,57 @@
+
+<div class="app-wrapper">
+
+  <div class="filter gl-padd-x24" [formGroup]="form">
+    <div class="filter-drug-btn">
+
+    </div>
+
+    <app-search-panel (searchTermChanded)="updateFilters($event)" placeholder="Search" class="gl-mar-r16">
+    </app-search-panel>
+
+  </div>
+
+  <div class="list-videos">
+    <!-- (addToFavorites)="addToFavorites($event)" -->
+    <!-- [repo]="repo" -->
+        <app-block class="app-main-item" *ngFor="let block of (repos$ | async)" [block]="block"
+     >
+  </app-block>
+    
+    <!-- <app-main-item class="app-main-item" *ngFor="let repo of (repos$ | async)" [repo]="repo"
+      (addToFavorites)="addToFavorites($event)">
+    </app-main-item> -->
+
+    <!-- <button *ngIf="!disableCheckbox" mat-button color="accent" (click)="loadMoreRepositories()">load more</button> -->
+  </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <app-search-panel placeholder="Search" class="gl-mar-r16">
+</app-search-panel> -->
+
+
+<!-- (searchTermChanded)="updateFilters($event)" -->
+<!-- placeholder="Search" -->
+
+
+
+
+
+      <!-- <div>
+        <mat-icon class="min-width">more_vert</mat-icon>
+        <mat-icon>more_vert</mat-icon>
+      </div> -->
