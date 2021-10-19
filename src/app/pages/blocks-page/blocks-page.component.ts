@@ -15,7 +15,7 @@ export class BlocksPageComponent implements OnInit {
 
   fields = {
     q: '',
-  }
+  };
 
   public disableCheckbox = true;
   public repos$: Observable<any> | undefined;
@@ -33,18 +33,20 @@ export class BlocksPageComponent implements OnInit {
     });
 
     this.repos$ = this.githubApiService.getPageParams().pipe(
-      switchMap(({ isFavorite, ...params }) => {
+      // isFavorite,
+      switchMap(({  ...params }) => {
         // if (isFavorite) {
         //   return of(this.githubApiService.getFavoritesRepo());
         // }
-        console.log('isFavorite, ...params', isFavorite, params);
+        console.log('isFavorite, ...params', params);
         if (!params.q) return of();
-        return this.githubApiService.getRepositories(params)
+        return this.githubApiService.getUsers(params)
           .pipe(
             tap((data: any) => {
+              console.log('data', data);
               // this.githubApiService.updateStoredNextPageToken(data.page);
             }),
-            // map((data: any) => this.githubApiService.updatestoredRepo(data.items))
+            map((data: any) => this.githubApiService.updatestoredRepo(data.items))
           );
       }),
     untilDestroyed(this)

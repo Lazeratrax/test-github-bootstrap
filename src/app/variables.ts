@@ -1,4 +1,6 @@
-export const ADRESS: string = `https://api.github.com/search/repositories`;
+export const ADRESS: string = `https://api.github.com/search/users`;
+
+export const ADRESS_USER: string = `https://api.github.com/users/`;
 
 export const PAGE_SIZE: number = 10;
 export const MAX_RESULTS = PAGE_SIZE;

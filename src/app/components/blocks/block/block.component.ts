@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { IRepository } from 'src/app/interfaces/search.interface';
 import { GithubApiService } from 'src/app/services/github-api.service';
 import {
-  faLink, faCodeBranch, IconDefinition, faLongArrowAltRight,
+  faLink, IconDefinition, faLongArrowAltRight,
   faQuestionCircle
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -14,31 +14,35 @@ import {
 })
 export class BlockComponent implements OnInit {
 
+  public trimName: string | undefined;
 
   public faLink: IconDefinition = faLink;
-  public faCodeBranch: IconDefinition = faCodeBranch;
   public faQuestionCircle: IconDefinition = faQuestionCircle;
-  public faLongArrowAltRight: IconDefinition = faLongArrowAltRight;
 
-  @Input() block!: IRepository;
+
+  @Input() block!: any;
   @Output() addToFavorites = new EventEmitter<IRepository>();
   
   constructor(
     private githubApiService: GithubApiService,
-    // public helpersService: HelpersService,
     private router: Router
-  ) { }
+     // public helpersService: HelpersService,
+  ) {
+    console.log('XXXXXXX', this);
+   }
 
 
   ngOnInit() {
-    // this.trimName = this.helpersService.trim(this.repo.name, 17);
+    console.log('XXXXXXX', this);
+    this.trimName = this.block?.login;
+    // this.helpersService.trim(this.repo.name, 17);
     // this.trimDescription = this.helpersService.trim(this.repo.description, 100);
   }
 
-  goToInfoPage(): void {
+  goToDetailPage(): void {
     // this.repo = { ...this.repo, description: this.helpersService.trim(this.repo.description, 200) };
     // this.githubApiService.infoDataSubject.next(this.repo);
-    // this.router.navigate([`/item/${this.repo.id}`]);
+    this.router.navigate([`/detail/${this.block.login}`]);
   }
 
   public toggleFavorite(): void {

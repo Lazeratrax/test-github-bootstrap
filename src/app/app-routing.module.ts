@@ -10,12 +10,11 @@ import { TablePageComponent } from './pages/table-page/table-page.component';
 // const routes: Routes = [];
 
 const routes: Route[] = [
+  { path: '', redirectTo: 'blocks', pathMatch: 'full' },
   { path: 'blocks', component: BlocksPageComponent},
   { path: 'table', component: TablePageComponent },
-  // { path: 'detail/:id', component: DetailPageComponent },
-  { path: 'detail', component: DetailPageComponent },
+  { path: 'detail/:id', component: DetailPageComponent },
   { path: '**', component: PageNotFoundComponent },
-  { path: '', redirectTo: '/blocks', pathMatch: 'full' }
 ]
 
 @NgModule({

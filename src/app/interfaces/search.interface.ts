@@ -21,7 +21,6 @@ export interface IRepository {
     html_url: string
   };
 }
-
 export interface IRepositoryFinite {
   id: number;
   name: string;
@@ -42,9 +41,6 @@ export interface IGithubParams {
   q: string;
   page?: number;
   per_page?: number;
-  sort?: string;
-  order?: string;
-  isFavorite?: boolean;
 }
 
 export interface IReposirotySearchResponse {
@@ -52,18 +48,11 @@ export interface IReposirotySearchResponse {
   total_count: number;
 }
 
-
-
-
-// const DEFAULT_PARAMS: IGithubParams =
-export const DEFAULT_PARAMS =
+export const DEFAULT_PARAMS: IGithubParams =
 {
   q: '',
-  order: '',
-  sort: '',
   per_page: 20,
-  page: 1,
-  isFavorite: false
+  page: 1
 };
 
 export const DETAIL_PARAMS =
@@ -71,11 +60,8 @@ export const DETAIL_PARAMS =
 // ссылка на профиль.
 {
   q: '',
-  order: '',
-  sort: '',
-  per_page: 5,
+  per_page: 20,
   page: 1,
-  isFavorite: false
 };
 
 export const QUERY_STRING = '';

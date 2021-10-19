@@ -1,10 +1,53 @@
+<div class="app-wrapper">
+
+  <div class="filter gl-padd-x24" [formGroup]="form">
+    <app-search-panel (searchTermChanded)="updateFilters($event)" placeholder="Search" class="gl-mar-r16">
+    </app-search-panel>
+  </div>
+
+  <div class="list-videos">
+
+    <table class="table table-striped table-responsive-md btn-table">
+      <thead>
+        <tr class="table-title">
+          <th></th>
+          <th>login</th>
+          <th>type of user</th>
+          <th>link</th>
+          <th></th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let block of (blocks$ | async); index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td> {{ block.login }}</td>
+          <td>{{ block.type }}</td>
+          <td>
+            <a href="{{ block.html_url }}" ngbTooltip="go to github">
+              <fa-icon class="faLink" [icon]="faLink"> </fa-icon>
+            </a>
+            <span>{{ block.html_url }}</span> 
+          </td>
+          <td>
+           
+            <a (click)="goToDetailPage(block.login)">
+              <fa-icon class="faQuestionCircle" [icon]="faQuestionCircle" ngbTooltip="go to detail page"></fa-icon>
+            </a>
+            
+          
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
 
 
-<app-search-panel placeholder="Search" class="gl-mar-r16">
-</app-search-panel>
 
-
-<table class="table table-striped table-responsive-md btn-table">
+<!-- <table class="table table-striped table-responsive-md btn-table">
   <thead>
     <tr>
       <th></th>
@@ -18,27 +61,10 @@
     <tr>
       <th scope="row">1</th>
       <td>
-        <button mdbBtn color="indigo" size="sm" mdbWavesEffect type="button" class="m-0">Button</button>
+        Otto
       </td>
       <td>Otto</td>
       <td>@mdo</td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>
-        <button mdbBtn color="indigo" size="sm" mdbWavesEffect type="button" class="m-0">Button</button>
-      </td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>
-        <button mdbBtn color="indigo" size="sm" mdbWavesEffect type="button" class="m-0">Button</button>
-      </td>
-    </tr>
   </tbody>
-</table>
-Outline buttons
+</table> -->

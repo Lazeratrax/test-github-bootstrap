@@ -1,45 +1,28 @@
-<article *ngIf="block; else noMessage" class="repo-item">
+<article *ngIf="block; else noMessage" class="block">
 
-  <div class="repo-item-card">
-    <div class="repo-item-card__head">
-      <div class="repo-item-card__head-content">
-        <div class="repo-item-card__title">
-          <div class="title-left">
-            <!-- {{trimName }} -->
-            <!-- (click)="goToInfoPage()" -->
-            <a class="repo-item-card__link" >
-              <span class="link">More info
-                <fa-icon class="faLongArrowAltRight" [icon]="faLongArrowAltRight"></fa-icon>
-              </span>
-            </a>
-          </div>
+  <!-- <div class="block"> -->
 
-          <div class="repo-item-card__content-stars">
+  <div class="block-content">
 
-            <fa-icon class="faCodeBranch" [icon]="faCodeBranch"></fa-icon>
-            <!-- {{ repo.forks_count }} -->
-            <fa-icon class="faQuestionCircle" [icon]="faQuestionCircle"></fa-icon>
-            11
-            <!-- {{ repo.open_issues_count }} -->
-
-            <!-- <mat-icon>star half</mat-icon> -->
-            <!-- {{repo.stargazers_count}} -->
-          </div>
-        </div>
-
-        <div class="repo-item-card__content">
-          <!-- {{trimDescription}} -->
-        </div>
-
-      </div>
-      <!-- mat-icon-button -->
-      <!-- (click)="toggleFavorite()" -->
-      <button  color="warn" aria-label="like icon" class="repo-item-card__btn"
-        >
-        <!-- <mat-icon class="{{isFavorite ? 'remove-favorite' : 'make-favorite'}}">favorite</mat-icon> -->
-      </button>
+    <div class="block-content-left">
+      <img src="{{ block.avatar_url }}" alt="">
+      <span ngbTooltip="login">{{ block.login }}</span>
     </div>
+
+    <div class="block-content-right">
+      <span ngbTooltip="type"> {{ block.type }}</span>
+
+      <a href="{{ block.html_url }}" ngbTooltip="go to github">
+        <fa-icon class="faLink" [icon]="faLink"> </fa-icon>
+      </a>
+      <a (click)="goToDetailPage()">
+        <fa-icon class="faQuestionCircle" [icon]="faQuestionCircle" ngbTooltip="go to detail page"></fa-icon>
+      </a>
+    </div>
+
   </div>
+
+  <!-- </div> -->
 
 </article>
 
