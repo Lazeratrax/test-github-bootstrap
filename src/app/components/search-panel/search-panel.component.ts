@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { AbstractControl, FormControl } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, tap, filter } from 'rxjs';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, filter, Observable } from 'rxjs';
 
-import { faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { faSearch, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { GithubApiService } from 'src/app/services/github-api.service';
 
@@ -14,49 +14,48 @@ import { GithubApiService } from 'src/app/services/github-api.service';
   styleUrls: ['./search-panel.component.scss']
 })
 export class SearchPanelComponent implements OnInit {
+
+  public searchingType = 'default';
   public trimName: string | undefined;
   public trimDescription: string | undefined;
   public faSearch: IconDefinition = faSearch;
+  public searchControl = new FormControl('');
 
-
-  @Input() control: AbstractControl | undefined;
   @Input() placeholder: string = $localize`Search`;
   @Output() searchTermChanded = new EventEmitter<string>();
 
-
-  public searchControl = new FormControl('');
-
-
   constructor(
-    private api: GithubApiService
-    ) { }
+    private _api: GithubApiService
+  ) { }
 
   ngOnInit(): void {
-    this.searchControl.valueChanges.pipe(
-      debounceTime(600),
+    this.searchControlChanges()
+      .subscribe({
+        next: (data: string) => {
+          if (this.searchingType !== 'default') {
+            this.searchTermChanded.emit(data);
+          }
+        }
+      })
+  }
+
+  getDataDefaultMode(): void {
+    this.searchTermChanded.emit(this.searchControl.value);
+  }
+
+  searchControlChanges(): Observable<string> {
+    return this.searchControl.valueChanges.pipe(
+      debounceTime(400),
       distinctUntilChanged(),
-      tap((res) => {
-        console.log('res', res);
-        (res.length <= 1) ?
-          this.api.possibilityFilter.next(false) :
-          this.api.possibilityFilter.next(true);
-      }),
       filter((query: string) => query?.length > 1),
       untilDestroyed(this)
-    ).subscribe({
-      next: (data) => {
-        if (this.control) {
-          this.control.setValue(data);
-        }
-        this.searchTermChanded.emit(data);
-      }
-    })
+    )
   }
 
-  search(e: any) {
-    console.log('e', e);
+  searchingSwitcher(param: string): void {
+    this.searchControl.setValue('');
+    this.searchingType = param;
   }
-
 }
 
 

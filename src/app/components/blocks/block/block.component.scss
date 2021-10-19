@@ -1,11 +1,16 @@
+article {
+  margin: 0;
+}
+
 .block {
   display: flex;
   flex-direction: column;
-  margin: 0.5rem;
+  margin: 0;
   border: 1px solid #bdbaba;
   border-radius: 10px;
   margin-bottom: 10px;
   background-color: #e2e2e2;
+  width: 100%;
 
   &-content {
     display: flex;

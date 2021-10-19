@@ -1,17 +1,49 @@
 <div class="input-group">
   <div class="form-outline">
-    <!-- type="search" id="form1" class="form-control"  -->
     <input 
-    type="search" name="search" [formControl]="searchControl"
-         [placeholder]="placeholder"
-         />
-    <!-- <label class="form-label" for="form1">Search</label> -->
+      type="search" 
+      name="search" 
+      [formControl]="searchControl" 
+      [placeholder]="placeholder" />
   </div>
-  <button type="button" class="btn btn-primary" (click)="search($event)">
-    <fa-icon [icon]="faSearch"></fa-icon>
+
+  <button 
+    *ngIf="searchingType === 'default'" 
+    type="button" 
+    class="btn btn-primary" 
+    (click)="getDataDefaultMode()">
+      <fa-icon [icon]="faSearch"></fa-icon>
   </button>
-  
+
+</div>
+<div class="searching">
+
+<div class="custom-control custom-radio">
+  <input 
+    type="radio" 
+    class="custom-control-input" 
+    id="defaultUnchecked" 
+    name="defaultExampleRadios" 
+    (click)="searchingSwitcher('default')" 
+    checked 
+    mdbInput>
+  <label 
+    class="custom-control-label" 
+    for="defaultUnchecked">
+      Default</label>
 </div>
 
-<!-- <mat-icon *ngIf="searchControl.value" (click)="searchControl.setValue('')">close</mat-icon> -->
-
+<div class="custom-control custom-radio">
+  <input 
+    type="radio" 
+    class="custom-control-input" 
+    id="defaultChecked" 
+    name="defaultExampleRadios"  
+    (click)="searchingSwitcher('lazy')" 
+    mdbInput>
+  <label 
+    class="custom-control-label" 
+    for="defaultChecked">
+      Lazy</label>
+</div>
+</div>

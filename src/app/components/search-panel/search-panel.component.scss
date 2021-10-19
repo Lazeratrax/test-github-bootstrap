@@ -1,7 +1,26 @@
 :host ::ng-deep .form-outline {
-    height: 40px !important;
-  }
+  height: 40px !important;
+}
 
-  input {
-    height: 40px;
+input {
+  height: 40px;
+}
+
+.searching {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  &-default,
+  &-lazy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    label {
+      margin: 0;
+    }
   }
+}

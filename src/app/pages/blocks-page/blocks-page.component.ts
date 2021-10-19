@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { map, Observable, of, switchMap, tap } from 'rxjs';
+import { map, Observable, of, switchMap } from 'rxjs';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import { GithubApiService } from 'src/app/services/github-api.service';
+import { IGetUsers } from 'src/app/interfaces/search.interface';
 
 @UntilDestroy()
 @Component({
@@ -11,64 +12,39 @@ import { GithubApiService } from 'src/app/services/github-api.service';
   styleUrls: ['./blocks-page.component.scss'],
 })
 export class BlocksPageComponent implements OnInit {
+
   public form!: FormGroup;
 
-  fields = {
-    q: '',
-  };
-
-  public disableCheckbox = true;
-  public repos$: Observable<any> | undefined;
+  public blocks$: Observable<any> | undefined;
   public searchStringState: string = '';
- 
+
   constructor(
-   public githubApiService: GithubApiService,
-   private fb: FormBuilder,
+    public api: GithubApiService,
+    private _fb: FormBuilder
   ) { }
 
-  ngOnInit(): void {
-
-    this.githubApiService.possibilityFilter.subscribe(res => {
-      this.disableCheckbox = !res;
-    });
-
-    this.repos$ = this.githubApiService.getPageParams().pipe(
-      // isFavorite,
-      switchMap(({  ...params }) => {
-        // if (isFavorite) {
-        //   return of(this.githubApiService.getFavoritesRepo());
-        // }
-        console.log('isFavorite, ...params', params);
+  ngOnInit() {
+    this.blocks$ = this.api.getPageParams().pipe(
+      switchMap(({ ...params }) => {
         if (!params.q) return of();
-        return this.githubApiService.getUsers(params)
+        return this.api.getUsers(params)
           .pipe(
-            tap((data: any) => {
-              console.log('data', data);
-              // this.githubApiService.updateStoredNextPageToken(data.page);
-            }),
-            map((data: any) => this.githubApiService.updatestoredRepo(data.items))
+            map((data:IGetUsers) =>
+              this.api.updatestoredRepo(data.items)
+              )
           );
       }),
-    untilDestroyed(this)
     );
 
     this.formInit();
-    
   }
 
-  formInit() {
-    this.form = this.fb.group(this.githubApiService.repoSubjectSource.getValue());
-  }
-
-  updateSearchString(str: string): void {
-    // if (typeof data === 'string') { data = { data } };
-    // this.githubApiService.updateSearchString(str);
+  formInit(): void {
+    this.form = this._fb.group(this.api.repoSubjectSource.getValue());
   }
 
   updateFilters(data: string): void {
-    // if (typeof data === 'string') { data = { data } };
-    console.log('data',data);
-    this.githubApiService.updateFilters(data);
+    this.api.updateFilters(data);
   }
 
 }

@@ -29,14 +29,12 @@ export class DetailPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log('thissssss', this);
-    // this.user$ =
     this.route.params
       .pipe(
         switchMap(({ id }) => { return this.api.getUserInfo(id); }),
         untilDestroyed(this)
       )
-      .subscribe((res) => { console.log('resss', res); this.obj = res;})
+      .subscribe((res) => { this.obj = res;})
   }
 
 }

@@ -5,16 +5,8 @@
     </app-search-panel>
   </div>
 
-  <div class="list-videos">
-    <!-- (addToFavorites)="addToFavorites($event)" -->
-    <!-- [repo]="repo" -->
-    <app-block class="app-main-item" *ngFor="let block of (repos$ | async)" [block]="block"></app-block>
-
-    <!-- <app-main-item class="app-main-item" *ngFor="let repo of (repos$ | async)" [repo]="repo"
-      (addToFavorites)="addToFavorites($event)">
-    </app-main-item> -->
-
-    <!-- <button *ngIf="!disableCheckbox" mat-button color="accent" (click)="loadMoreRepositories()">load more</button> -->
+  <div class="list">
+    <app-block class="app-main-item" *ngFor="let block of blocks$ | async" [block]="block"></app-block>
   </div>
 
 </div>
