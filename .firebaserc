@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "github-bootstrap": {
+      "hosting": {
+        "test-api-github-bootstrap": [
+          "github-bootstrap"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "github-bootstrap"
+  }
+}

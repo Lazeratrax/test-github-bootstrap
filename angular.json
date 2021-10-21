@@ -34,6 +34,7 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -105,6 +106,16 @@
               "src/styles.scss"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "test-api-github-bootstrap:build:production",
+            "firebaseProject": "github-bootstrap",
+            "firebaseHostingSite": "github-bootstrap"
           }
         }
       }
