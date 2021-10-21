@@ -111,60 +111,49 @@ export class AuthService {
       })
   }
 
-  // Returns true when user is looged in and email is verified
+  // Returns true when user is looged in
   get isLoggedIn(): boolean {
-    console.log('vvvvvv', this);
     const user = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user') || '{}') : null;
-    console.log('vvvvvv', this, user);
-    return (user !== null && user !== '' && user.emailVerified !== false) ? true : false;
+    return (user !== null && user !== '' && (user.providerData[0]?.providerId === 'google.com' || 'github.com') ) ? true : false;
   }
 
   // Sign in with Google
   GoogleAuth() {
-    console.log('CCCCC', this);
     return this.AuthLogin(new firebase.auth.GoogleAuthProvider());
   }
 
   // Sign in with Github
   GithubAuth() {
-    console.log('CCCCC', this);
-    return this.AuthLogin(new firebase.auth.GithubAuthProvider());
-    // return new firebase.auth.GithubAuthProvider();
-
+    return this.AuthGithubLogin(new firebase.auth.GithubAuthProvider());
   }
 
-  // Auth logic to run auth providers
+  // Auth logic to run auth provider github
+  AuthGithubLogin(provider: any) {
+    return firebase
+    .auth()    
+    .signInWithPopup(provider)
+    .then((result: { user: any; }) => {
+      this.ngZone.run(() => {
+        setTimeout(() => { this.router.navigate(['blocks']); }, 300)
+      })
+      this.SetUserData(result.user);
+    })
+      .catch(function (error) {
+        console.log(error.code, ' - ', error.message);
+      });
+  }
+
+  // Auth logic to run auth provider gmail
   AuthLogin(provider: any) {
-    const auth = getAuth();
-    console.log('cccccc', provider, this);
-    return firebase.auth().signInWithPopup(provider)
-   
-    .then(function(result) {
-      console.log('cccccc', provider, result);
-      //  var token = result.credential.accessToken;
-       var user = result.user;
-     
-      //  console.log(token)
-       console.log(user)
-    }).catch(function(error) {
-       var errorCode = error.code;
-       var errorMessage = error.message;
-     
-       console.log(error.code)
-       console.log(error.message)
-    });
-    // this.afAuth.signInWithPopup(provider)
-    //   .then((result: { user: any; }) => {
-    //     console.log('cccccc', result, this);
-    //     this.ngZone.run(() => {
-    //       // dashboard
-    //       // blocks
-    //       setTimeout(() => { this.router.navigate(['dashboard']); }, 300)
-    //     })
-    //     this.SetUserData(result.user);
-    //   }).catch((error: any) => {
-    //     window.alert(error)
-    //   })
+    this.afAuth.signInWithPopup(provider)
+      .then((result: { user: any; }) => {
+        this.ngZone.run(() => {
+          setTimeout(() => { this.router.navigate(['blocks']); }, 300)
+        })
+        this.SetUserData(result.user);
+      }).catch((error: any) => {
+        window.alert(error)
+      })
   }
 
   /* Setting up user data when sign in with username/password, 
@@ -193,7 +182,7 @@ export class AuthService {
       })
   }
 
-  
+
 
 }
 // https://github.com/Lazeratrax

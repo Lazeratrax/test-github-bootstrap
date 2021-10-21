@@ -24,14 +24,12 @@ import { DetailPageComponent } from './pages/detail-page/detail-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { BlockComponent } from './components/blocks/block/block.component';
 
-
 import { environment } from '../environments/environment';
 
 import { UserComponent } from './pages/user/user.component';
 import { SignInComponent } from './pages/components/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/components/sign-up/sign-up.component';
-import { ForgotPasswordComponent } from './pages/components/forgot-password/forgot-password.component';
-import { VerifyEmailComponent } from './pages/components/verify-email/verify-email.component';
+
 import { AuthService } from './services/auth.service';
 import { DashboardComponent } from './pages/components/dashboard/dashboard.component';
 
@@ -53,8 +51,6 @@ import { DashboardComponent } from './pages/components/dashboard/dashboard.compo
     UserComponent,
     SignInComponent,
     SignUpComponent,
-    ForgotPasswordComponent,
-    VerifyEmailComponent,
     DashboardComponent
   ],
   imports: [

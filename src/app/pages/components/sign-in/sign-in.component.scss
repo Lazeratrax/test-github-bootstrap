@@ -1,0 +1,31 @@
+.displayTableCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.authBlock {
+  padding: 230px 30px;
+
+  &-title {
+    padding-bottom: 30px;
+  }
+
+  &-btn {
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid #030303;
+    min-width: 300px;
+  }
+
+  &-btn-github {
+    background-color: #24292f;
+    color: #fff;
+  }
+}
+
+.redirect {
+  cursor: pointer;
+  font-weight: 600;
+}
